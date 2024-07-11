@@ -1,0 +1,7 @@
+An exercise in Air to Air refueling
+
+calculate fill time from one aircraft to another using flow rate, different aircraft, different flow rate
+
+calculate how much fuel was transfered based on a time, different aircraft, different flow rate
+
+calculate wing fuel load balancing

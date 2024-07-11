@@ -1,0 +1,126 @@
+From the top:
+
+Forex Profit Calculator
+------------------------------
+
+(prompt) Input a value for each of the following prompts
+
+------------------------------------ calculate profit conversions from trades ------------------------------------
+
+(input) Enter currency pair (EURUSD, GBPUSD, USDCHF, USDCAD, AUDUSD, NZDUSD): (user input)
+
+(input prompt) Enter the account currency (USD, EUR, GBP): (user input)
+
+-----------------------------------------------------------------------------------------------------------
+----------------------- calculate how massive the trade is, this is like a multiplier ---------------
+
+Input trade size in lots (1.0, 0.1, 0.01): (user input)
+
+-----------------------------------------------------------------------------------------------------------
+----------------------------------------------- calculate pip change --------------------------------------
+
+Enter open price:
+
+Enter close price:
+
+---------------------------------------------------------------
+
+--------------------- if short, then profit from price decrease, if long the profit from price increase -------------
+Enter trade direction (long, short):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------
+
+Program starts with a standard set of currencies and conversion rates:
+
+(july 6 2024, 12:33 EST, forex.com)
+EUR/USD - 1.08397
+GBP/USD - 1.28121
+USD/CHF - 0.89532
+USD/CAD - 1.36374
+AUD/USD - 0.67486
+NZD/USD - 0.61445
+
+As a user, you would like to calculate how much money is made (given lot size, pip change, and long vs short position)
+
+
+--------------------------------------------------------
+
+Position size calculator:
+
+short vs long positions
+
+risk ratio
+
+stop loss
+
+
+Risk - How much money youre willing to lose on a trade
+risk to reward ratio: 1:1 (10$ to make, you risk 10$)
+
+pip: percentage in point - EUR/USD from 1.1028 to 1.1029 is an increase in one pip
+some currency brokers add a fifth decimal place which is 1/10th of a pip, or a pipette (point, or a fractional point)
+
+EUR/USD 1.17835
+For every 1 euro, youd get 1.17835 USD, the pip is the 3, the pipette is the 5
+to get 10 pips out of the trade, and youre in the buy position, you want to see the EURUSD to go to 1.17935 (10 pip profit)
+
+micro lot: 0.01 - $0.10
+mini lot: 0.10 - $1.00
+std lot: 1.00 - $10.00
+
+Forex trading - Swap calculation
+
+pip to four decimal places in most other currencies
+pippete is the fifth decimal place (1/10th of a pip)
+
+USD/JPY (pip to 2 decimals in jyp)
+GBP/USD
+USD/CHF
+USD/CAD
+AUD/USD
+NZD/USD
+
+standard lot: 100,000
+mini lot: 10,000
+micro lot: 1,000
+nano lot: 100
+
+Central bank interest rates globally (USD, GBP, CHF, CAD, AUD, NZD, JPY)
+- for simplicity sake we will use a fixed US and a fixed foreign interest rate.
+
+
+# Who is your broker? (commission, spread and swap)
+
+How much of what currency do you have? (USD, JYP, CHF, CAD)
+
+Pick an option to either buy or sell a currency pair you would like to trade with (USD, EUR, AUD, RUB, JPY, CAD, CNY, GBP)
+a USD/JPY (pip to 2 decimals in jyp)
+b GBP/USD
+c USD/CHF
+d USD/CAD
+e AUD/USD
+f NZD/USD
+
+What day of the week is it?
+
+How many days do you intend to hold?
+
+
+
+
+
+
