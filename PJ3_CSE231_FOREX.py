@@ -135,6 +135,7 @@ while keep_going.upper() != 'E':
         change_account_balance_flag = True
     elif keep_going_user_input == '2': #calculate profit from pip increase or decrease, with position direction stake ---------------------------------------------------------------------
 
+
         while True:
             currency_pair = input(CURRENCY_PAIR_TEXT).upper()
             if currency_pair not in valid_currency_pairs:
