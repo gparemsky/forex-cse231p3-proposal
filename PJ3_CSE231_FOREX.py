@@ -79,7 +79,7 @@ while keep_going.upper() != 'E':
             ac_old = account_currency
 
             while True:
-                account_currency = input(ACCOUNT_CURRENCY_TEXT+f'(default: {account_currency}): ').upper()
+                account_currency = input(ACCOUNT_CURRENCY_TEXT+f'(default: {ac_old}): ').upper()
                 if not account_currency:
                     account_currency = ac_old
                 if account_currency not in valid_account_currencies_abbreviation:
