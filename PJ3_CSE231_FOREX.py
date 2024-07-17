@@ -20,16 +20,12 @@ valid_account_currencies_abbreviation = 'USD/EUR'
 valid_currency_pairs = 'EURUSD/GBPUSD/USDSGD/USDJPY/EURCHF'
 
 
-#CHF to USD conversion rate:
-
-#CAD to USD conversion rate:
-
+#PIP SIZE AND LOT SIZE TO NUMERICAL DEFINITIONS
 JPY_PIP = 0.01             #ONLY THE JAPANESE YEN IS SPECIAL AND USES 2 DECIMAL PLACES
 STANDARD_PIP = 0.0001      #PIP IS 1/10,000TH OF A CURRENCY, 4 DECIMAL PLACES, A PIPETTE IS 5 DECIMAL PLACES BUT WE WONT USE THOSE HERE
 STANDARD_LOT_SIZE = 100000 #100,000 OR 1.0
 MINI_LOT_SIZE = 10000      #10,000 OR 0.1
 MICRO_LOT_SIZE = 1000      #1,000 OR 0.01
-
 
 #prices taken July 10, 2024, 14:31 GMT
 EURUSD = 1.0826 #EUR/USD - every 1 Euro is worth 1.0826 USD
@@ -58,25 +54,22 @@ OPEN_PRICE_TEXT = 'Enter open price: '
 CLOSE_PRICE_TEXT = 'Enter close price: '
 
 
-#TODO need to find a better way to print menu, without three print statements below.
-
 MAIN_MENU = '''
 [1] Position Size Calculator
-[2] Profit calculator (NOT WORKING YET)
+[2] Profit calculator
 [3] Change account currency and balance
 
-'''
-# Position size calculator # add option to take from account balance
-# profit calculator # and add options to add to account balance
+enter "e" to exit program
 
+'''
 
 print(WELCOME_TEXT)
 print(MAIN_PROMPT)
 
 
-keep_going = 'Y' #this is legacy, but kept in as a flag in case I decide to terminate the loop by setting keep_going to something else
+keep_going = ''
 
-while keep_going.upper() == 'Y':
+while keep_going.upper() != 'E':
 
     if program_loops == 0 or change_account_balance_flag == True:
         #set the currency of the account (valid are USD, EUR, and GBP)
@@ -138,9 +131,9 @@ while keep_going.upper() == 'Y':
 
     keep_going_user_input = input() #this is the users menu choice
 
-    if keep_going_user_input == '3': #change the calculators account currency and balance.
+    if keep_going_user_input == '3': #change the calculators account currency and balance. ------------------------------------------------------------------------------------------------
         change_account_balance_flag = True
-    elif keep_going_user_input == '2': #calculate profit from pip increase or decrease, with position direction stake
+    elif keep_going_user_input == '2': #calculate profit from pip increase or decrease, with position direction stake ---------------------------------------------------------------------
 
         while True:
             currency_pair = input(CURRENCY_PAIR_TEXT).upper()
@@ -149,14 +142,66 @@ while keep_going.upper() == 'Y':
                 continue
             break
 
+        if account_currency == "USD":
+            if currency_pair[3:6] == 'USD':
+                pip_value_per_lot = STANDARD_PIP * STANDARD_LOT_SIZE
+            elif currency_pair[3:6] == 'SGD':
+                pip_value_per_lot = (STANDARD_PIP / USDSGD) * STANDARD_LOT_SIZE
+            elif currency_pair[3:6] == 'JPY':
+                pip_value_per_lot = (JPY_PIP / USDJPY) * STANDARD_LOT_SIZE
+            elif currency_pair[3:6] == 'CHF':
+                pip_value_per_lot = (STANDARD_PIP / USDCHF) * STANDARD_LOT_SIZE
+        elif account_currency == "EUR":
+            if currency_pair[3:6] == 'EUR':
+                pip_value_per_lot = STANDARD_PIP * STANDARD_LOT_SIZE
+            elif currency_pair[3:6] == 'SGD':
+                pip_value_per_lot = (STANDARD_PIP / EURSGD) * STANDARD_LOT_SIZE
+            elif currency_pair[3:6] == 'JPY':
+                pip_value_per_lot = (JPY_PIP / EURJPY) * STANDARD_LOT_SIZE
+            elif currency_pair[3:6] == 'CHF':
+                pip_value_per_lot = (STANDARD_PIP / EURCHF) * STANDARD_LOT_SIZE
+            elif currency_pair[3:6] == 'USD':
+                pip_value_per_lot = (STANDARD_PIP / EURUSD) * STANDARD_LOT_SIZE
+
         trade_size_in_lots = float(input("Please enter trade size in lots: "))
+        print(f"--- Entered {trade_size_in_lots} lots ---")
+
         open_price = float(input(OPEN_PRICE_TEXT))
+        print(f"--- Entered {open_price} open price ---")
+
         close_price = float(input(CLOSE_PRICE_TEXT))
-        pip_delta = close_price - open_price
-        trade_direction = input("Please enter trade direction ((b)uy or (s)ell): ")
+        print(f"--- Entered {close_price} close price ---")
+
+        if "JPY" in currency_pair:
+            pip_delta = (close_price - open_price) * 100
+        else:
+            pip_delta = (close_price - open_price) * 10000
+
+        print(f"--- Market change {pip_delta} pips ---")
+
+        trade_direction = input("Please enter trade direction ((b)uy or (s)ell): ").lower()
+        if trade_direction == "b" or trade_direction == "buy":
+            print(f"--- Entered long position ---")
+            trade_direction = "b"
+
+        if trade_direction == "s" or trade_direction == "sell":
+            print(f"--- Entered short position ---")
+            trade_direction = "s"
 
 
-    elif keep_going_user_input == '1': #calculate position size to take in pips from risk percent
+        profit = trade_size_in_lots * pip_value_per_lot * pip_delta
+
+        if trade_direction == "s":
+            profit = profit * -1
+
+        print(f"Profit = {account_currency} {profit:,.2f}")
+
+        print()
+        input("press enter to continue...")
+        print()
+        print()
+
+    elif keep_going_user_input == '1': #calculate position size to take in pips from risk percent -----------------------------------------------------------------------------------------
         risk_percent = (float(input(f"How much of your account ({account_currency} {account_balance:,.2f}) are you willing to risk? (%): "))/100)
         print(f"--- Entered {risk_percent}% - {((risk_percent)*account_balance)} ---") #for debug, make dynamic sentence structure down below later.
         pip_stoploss = int(input("how many pips are you willing to gamble? (stoploss in integer): "))
@@ -203,9 +248,9 @@ while keep_going.upper() == 'Y':
 A position of {position_size:,.2f} lots should be staked in {currency_pair[0:3]+'/'+currency_pair[3:6]}")
         print()
         input("press enter to continue...")
-        print()
-        print()
 
+    else:
+        keep_going = keep_going_user_input
     program_loops += 1
 
 
