@@ -1,12 +1,11 @@
 ########################################
 # Computer project #3
 #
-# Desc
+# Desc: calculator to help determine
+# entry position size, and profit after
+# observed market movement
 #
-# Algorithm
-#
-#
-#
+# Algorithm : See readme
 #
 ########################################
 
