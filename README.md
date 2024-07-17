@@ -1,3 +1,5 @@
+# READ ME IS WORK IN PROGRESS (JUL 17, 2024, 19:58)
+
 # Objectives of this project:
 
 Learn to handle scrubbing dirty input, do currency conversions using abstract units of measurments (pips and lots)
@@ -40,7 +42,7 @@ On the right is the python program with a set of static values set at the top of
 DEMO
 ![image](assets/pos_size_demo.gif)
 
-**Explination:**
+**Explanation:**
 
 - **Account Currency** will be what currency our broker is accepting, This currency would appear in our trading account to use as leverage for trading. So if we are in the USA, we will be using USD.
 - **Currency Pair** is the pair of currency we are treating as an asset (like one would treat TSLA in the stock market) to execute our trades against.
@@ -70,10 +72,29 @@ position size relies on four values, three of which the user gives to us (acc ba
         pip_value_per_lot_CHF = (STANDARD_PIP / EURCHF) * STANDARD_LOT_SIZE
         pip_value_per_lot_USD = (STANDARD_PIP / EURUSD) * STANDARD_LOT_SIZE
 ```
+An example (and online explanation) of a pip value per lot calculator can be found [online here](https://www.myfxbook.com/forex-calculators/pip-calculator)
 
+The value of a pip depends on our account currency. In this case, either USD or EUR. 
+
+A pip is calculated by the following: (1 pip / Quote currency Exchange Rate to Account Currency) * lot size measurement\
+*In every currency pair, there is a base currency and a quote currency.\
+In EUR/USD, the EUR is the base currency and the USD is the quote currency.*
+
+In this case, A standard pip will always be 0.0001, only unless the jpy is involved.\
+For a trading account that uses USD, where the **quote currency is the USD** (eg EURUSD), the pip value per lot in this case will be $10 (or `(0.0001 / 1) * 100,000`)\
+Where a "standard lot" is **100,000 units of the base currency**.
+
+Here is some video explanations on the subject which helped create this project:\
+Video 1: https://www.youtube.com/watch?v=7kzizI2MpfA \
+Video 2: https://www.youtube.com/watch?v=omPNkM7PdQ4&t \
+Video 3: https://www.youtube.com/watch?v=3jwixTmgHUg
 
 [more about position size can be found here](https://learningcenter.fxstreet.com/education/learning-center/unit-3/chapter-3/the-position-size/index.html)
 
+- ### Menu option 2, calculating profits
+Arguably easier than menu 1, but still requires the pip_value_per_lot code block mentioned just above.
+
+DEMO:
 
 ### explaining pips
 
