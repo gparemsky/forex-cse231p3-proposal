@@ -71,6 +71,7 @@ keep_going = ''
 
 while keep_going.upper() != 'E':
 
+    ### ------------------------------- Change account balance on first run or request from menu option 3----------------------------------- ###
     if program_loops == 0 or change_account_balance_flag == True:
         #set the currency of the account (valid are USD, EUR, and GBP)
 
@@ -123,18 +124,38 @@ while keep_going.upper() != 'E':
                 break
         change_account_balance_flag = False
 
+    account_balance = float(account_balance)  # convert the scrubbed input from string to float
+    ### ------------------------------------------------------------------------------------------------------------------------------------ ###
+
+
+    # ---- Print the repeated menu, with user account balance, currency, and the main menu options ---- #
     print("======================================")
     print(f"Account: {account_currency} {float(account_balance):,.2f}")
     print(MAIN_MENU)
+    # -------------------------------------------------------------------- #
 
-    account_balance = float(account_balance)
+    if account_currency == "USD":
+        pip_value_per_lot_USD = STANDARD_PIP * STANDARD_LOT_SIZE
+        pip_value_per_lot_SGD = (STANDARD_PIP / USDSGD) * STANDARD_LOT_SIZE
+        pip_value_per_lot_JPY = (JPY_PIP / USDJPY) * STANDARD_LOT_SIZE
+        pip_value_per_lot_CHF = (STANDARD_PIP / USDCHF) * STANDARD_LOT_SIZE
+    elif account_currency == "EUR":
+        pip_value_per_lot_EUR = STANDARD_PIP * STANDARD_LOT_SIZE
+        pip_value_per_lot_SGD = (STANDARD_PIP / EURSGD) * STANDARD_LOT_SIZE
+        pip_value_per_lot_JPY = (JPY_PIP / EURJPY) * STANDARD_LOT_SIZE
+        pip_value_per_lot_CHF = (STANDARD_PIP / EURCHF) * STANDARD_LOT_SIZE
+        pip_value_per_lot_USD = (STANDARD_PIP / EURUSD) * STANDARD_LOT_SIZE
 
-    keep_going_user_input = input() #this is the users menu choice
 
-    if keep_going_user_input == '3': #change the calculators account currency and balance. ------------------------------------------------------------------------------------------------
+    # this is the users menu choice - mainly how the user interacts with the software (valid inputs are 1-2-3 or e as defined in the if-tree below)
+    keep_going_user_input = input()
+
+    if keep_going_user_input == '3':
+        # change the calculators account currency and balance.
         change_account_balance_flag = True
-    elif keep_going_user_input == '2': #calculate profit from pip increase or decrease, with position direction stake ---------------------------------------------------------------------
 
+    elif keep_going_user_input == '2':
+        # calculate profit from pip increase or decrease, with position direction stake
 
         while True:
             currency_pair = input(CURRENCY_PAIR_TEXT).upper()
@@ -143,26 +164,7 @@ while keep_going.upper() != 'E':
                 continue
             break
 
-        if account_currency == "USD":
-            if currency_pair[3:6] == 'USD':
-                pip_value_per_lot = STANDARD_PIP * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'SGD':
-                pip_value_per_lot = (STANDARD_PIP / USDSGD) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'JPY':
-                pip_value_per_lot = (JPY_PIP / USDJPY) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'CHF':
-                pip_value_per_lot = (STANDARD_PIP / USDCHF) * STANDARD_LOT_SIZE
-        elif account_currency == "EUR":
-            if currency_pair[3:6] == 'EUR':
-                pip_value_per_lot = STANDARD_PIP * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'SGD':
-                pip_value_per_lot = (STANDARD_PIP / EURSGD) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'JPY':
-                pip_value_per_lot = (JPY_PIP / EURJPY) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'CHF':
-                pip_value_per_lot = (STANDARD_PIP / EURCHF) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'USD':
-                pip_value_per_lot = (STANDARD_PIP / EURUSD) * STANDARD_LOT_SIZE
+        pip_value_per_lot = eval("pip_value_per_lot_" + currency_pair[3:6])
 
         trade_size_in_lots = float(input("Please enter trade size in lots: "))
         print(f"--- Entered {trade_size_in_lots} lots ---")
@@ -178,7 +180,7 @@ while keep_going.upper() != 'E':
         else:
             pip_delta = (close_price - open_price) * 10000
 
-        print(f"--- Market change {pip_delta} pips ---")
+        print(f"--- Market changed {pip_delta} pips ---")
 
         trade_direction = input("Please enter trade direction ((b)uy or (s)ell): ").lower()
         if trade_direction == "b" or trade_direction == "buy":
@@ -202,7 +204,9 @@ while keep_going.upper() != 'E':
         print()
         print()
 
-    elif keep_going_user_input == '1': #calculate position size to take in pips from risk percent -----------------------------------------------------------------------------------------
+    elif keep_going_user_input == '1':
+        # calculate position size to take in pips from risk percent
+
         risk_percent = (float(input(f"How much of your account ({account_currency} {account_balance:,.2f}) are you willing to risk? (%): "))/100)
         print(f"--- Entered {risk_percent}% - {((risk_percent)*account_balance)} ---") #for debug, make dynamic sentence structure down below later.
         pip_stoploss = int(input("how many pips are you willing to gamble? (stoploss in integer): "))
@@ -219,33 +223,13 @@ while keep_going.upper() != 'E':
 
         # calculate pip_value_per_lot for each trade currency
 
-        if account_currency == "USD":
-            if currency_pair[3:6] == 'USD':
-                pip_value_per_lot = STANDARD_PIP * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'SGD':
-                pip_value_per_lot = (STANDARD_PIP / USDSGD) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'JPY':
-                pip_value_per_lot = (JPY_PIP / USDJPY) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'CHF':
-                pip_value_per_lot = (STANDARD_PIP / USDCHF) * STANDARD_LOT_SIZE
-        elif account_currency == "EUR":
-            if currency_pair[3:6] == 'EUR':
-                pip_value_per_lot = STANDARD_PIP * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'SGD':
-                pip_value_per_lot = (STANDARD_PIP / EURSGD) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'JPY':
-                pip_value_per_lot = (JPY_PIP / EURJPY) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'CHF':
-                pip_value_per_lot = (STANDARD_PIP / EURCHF) * STANDARD_LOT_SIZE
-            elif currency_pair[3:6] == 'USD':
-                pip_value_per_lot = (STANDARD_PIP / EURUSD) * STANDARD_LOT_SIZE
-
+        pip_value_per_lot = eval("pip_value_per_lot_" + currency_pair[3:6])
 
         # calculate position size
         position_size = (((account_balance * risk_percent)/pip_stoploss)/pip_value_per_lot)
 
         print()
-        print(f"With an account balance of {account_currency} {account_balance:,.2f}, taking a {risk_percent}% risk with a {pip_stoploss} pip stoploss.\n\
+        print(f"With an account balance of {account_currency} {account_balance:,.2f}, taking a {risk_percent}% risk ({account_currency} {((risk_percent)*account_balance)}) with a {pip_stoploss} pip stoploss.\n\
 A position of {position_size:,.2f} lots should be staked in {currency_pair[0:3]+'/'+currency_pair[3:6]}")
         print()
         input("press enter to continue...")
