@@ -145,7 +145,7 @@ Technically the fourth decimal place is the pip, and the fifth decimal place not
 
 An important side note about pips, with any pair with the japanese yen as the quote currency (eg USD/JPY)\
 *quote currency being the second currency in the pair, base being the first*
-The pip of such a currency pair will only be measured to the hundredths place, example USDJPY = 156.29 \
+The pip of such a currency pair will only be measured to the hundredths place, example USD/JPY = 156.29 \
 If this pair was to increase to 156.30 then this would be an observed rise in one pip.\
 Same rules about pipettes apply to the JPY currencies, where the pipette is the next place after the decimal, or the third digit in this case if a broker supports it on their trading platform.
 
@@ -155,12 +155,18 @@ Video 2: https://www.youtube.com/watch?v=D1YjpXDAG-c
 
 ## explaining lot sizes
 
-Lots are what we trade forex pairs in. If we want to place a buy order on EURUSD, then we have to specify lot size.\
+Lots are what we trade forex pairs in. If we want to place a buy order on EUR/USD, then we have to specify lot size.\
 Lot size indicates how much of the base currency (EUR in this case) we are getting for the exchange rate of the quote currency.\
-If we want to place a buy order for 1 lot on the AUDUSD pair, and AUD/USD is valued at 1.2000, then we will get 100,000 (or 1 lot) of AUD, if we hand over 120,000 USD.
+If we want to place a buy order for 1 lot on the AUD/USD pair, and AUD/USD is valued at 1.2000, then we will get 100,000 (or 1 lot) of AUD, if we hand over 120,000 USD.
+
+Typically, a lot is 100,000 units, and we will almost always refer to it as 1.0, any less, and it's a decimal point of 1.0
+for smaller volume of trades, there are micro lots 10,000 units, and mini lots 1,000.
+
+You can set your frame of reference to what "a 1.0 lot size" is, either a standard, mini, or micro, but normally everyone just assumes 1.0 is a standard lot size.
+
 
 Typically price of currencies do not sway so chaotically, so you may only see a movement in a day of a few dozen pips. But while holding 1 lot of a currency pair,\
-a movement from 1.2000 to 1.2002 (2 pips) can yeild large profits. 
+a movement from 1.2000 to 1.2002 (2 pips) can yield large profits. 
 
 Where the opposite can happen too, going from 1.2 to 1.1 would be a huge loss unless you shorted the pair. \
 *this is why its very important to set stop-losses to pull you out of positions if the market gets too wild, or your trading account can be drained faster than you can see the updates come in on the candle stick*
