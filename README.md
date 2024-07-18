@@ -70,7 +70,7 @@ DEMO
 *(this is not true for one exception, any pair with the japanese yen as the quote currency, where we measure one pip in the 100th's place, 161.54 to 161.64 is a 10 pip movement)* [further explanation on pips can be found below](#explaining-pips)
 - **Trade size** - in the online calculator, trade size is just a reference for how big of lots we are trading in, standard lot sizes are 1.0, so we will keep it as one. [further explanation on lots can be found below](#explaining-lot-sizes)
 
-## **Calculation**
+### **Calculation**
 
 ### The calculation for position size can be found on line 228
 ```python
@@ -133,7 +133,7 @@ DEMO (going short)
 This calculation is straitforward. Its important to know the currency pair the user is trading, and their account currency. This will obtain a pip value per lot.\
 Lot size is a standard 100,000 units of base currency per 1 lot, and the pip value per lot is calculated on lines 136 to 146 as explained [just above](#the-calculation-for-position-size-can-be-found-on-line-228)
 
-> [!IMPORTANT]
+> [!IMPORTANT] \
 Take extra care to make sure if a JPY currency is involved, to calculate pips differently such as shown in line 177
 ```python
     if "JPY" in currency_pair:
@@ -157,19 +157,19 @@ This will determine the users specific pip count lost or gained between the open
 > When calculating conversions, for say an accoung thats in USD, for a trade of EUR/CHF, typically the closing price (or most recent) is used as the conversion rate when converting your profits into USD
 
 On line 196 the following code snippet just inverts the profit/loss if the user entered a sell, or short position.
-*as would indicate a profit if the currency pair devalued from 1.1 to 1.0, where a normal buy position would define a loss on that evaluation.
+*as would indicate a profit if the currency pair devalued from 1.1 to 1.0, where a normal buy position would define a loss on that evaluation.*
 ```python
     if trade_direction == "s":
         profit = profit * -1
 ```
 
-## explaining pips
+## Explaining pips
 
 Pip stands for percentage in points. When you look up a currency pair on the forex market you will always see it to the fourth or fifth decimal place.\
 Technically the fourth decimal place is the pip, and the fifth decimal place not all brokers support, but is called a *pipette* and is one tenth of a pip.
 
-An important side note about pips, with any pair with the japanese yen as the quote currency (eg USD/JPY)\
-*quote currency being the second currency in the pair, base being the first*
+Any pair with the japanese yen as the quote currency (eg USD/JPY)\
+(*quote currency being the second currency in the pair, base being the first*)
 The pip of such a currency pair will only be measured to the hundredths place, example USD/JPY = 156.29 \
 If this pair was to increase to 156.30 then this would be an observed rise in one pip.\
 Same rules about pipettes apply to the JPY currencies, where the pipette is the next place after the decimal, or the third digit in this case if a broker supports it on their trading platform.
@@ -179,7 +179,7 @@ Two short videos explaining pips: \
 Video 1: https://www.youtube.com/watch?v=EfGmUiOPJCA \
 Video 2: https://www.youtube.com/watch?v=D1YjpXDAG-c
 
-## explaining lot sizes
+## Explaining lot sizes
 
 Lots are what we trade forex pairs in. If we want to place a buy order on EUR/USD, then we have to specify lot size.\
 Lot size indicates how much of the base currency (EUR in this case) we are getting for the exchange rate of the quote currency.\
@@ -189,13 +189,16 @@ Typically, a lot is 100,000 units, and we will almost always refer to it as 1.0,
 for smaller volume of trades, there are micro lots 10,000 units, and mini lots 1,000.
 
 You can set your frame of reference to what "a 1.0 lot size" is, either a standard, mini, or micro, but normally everyone just assumes 1.0 is a standard lot size.
+
 For example, a standard lot would be 1.0, a micro lot would be 0.1, and a mini lot would be 0.01. This is normally how everyone sees it.
-But it could be a rare blue moon case that someone says 1.0 is a micro lot, and on that scale, 10.0 is a standard lot. This is not how we do it, or others normally do it. Just be aware of it but dont calculate currency this way. **Beware of it though.**
+
+> [!WARNING] \
+But there could be a rare blue moon case that someone says 1.0 is a micro lot, and on that scale, 10.0 is a standard lot. This is not how we do it, or others normally do it. Just be aware of it but dont calculate currency this way. **Beware of it though.**
 
 Typically price of currencies do not sway so chaotically, so you may only see a movement in a day of a few dozen pips. But while holding 1 lot of a currency pair,\
 a movement from 1.2000 to 1.2002 (2 pips) can yield large profits. 
 
-Where the opposite can happen too, going from 1.2 to 1.1 would be a huge loss unless you shorted the pair. \
+Where the opposite can happen too, going from 1.2000 to 1.1500 (-500 pips) would be a huge loss unless you shorted the pair. \
 *this is why its very important to set stop-losses to pull you out of positions if the market gets too wild, or your trading account can be drained faster than you can see the updates come in on the candle stick*
 
 
