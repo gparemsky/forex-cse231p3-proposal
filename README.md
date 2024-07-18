@@ -1,5 +1,3 @@
-# READ ME IS WORK IN PROGRESS (JUL 17, 2024, 19:58)
-
 ## Prologue; What is forex?
 The global foreign exchange market has a trading volume per day of over $6,000,000,000,000 (trillion) dollars. Compared to the NYSE of just over 18 billion.
 
