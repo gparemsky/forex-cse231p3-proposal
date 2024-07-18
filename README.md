@@ -1,5 +1,8 @@
 # READ ME IS WORK IN PROGRESS (JUL 17, 2024, 19:58)
 
+## Prologue; What is forex?
+
+
 # Objectives of this project:
 
 Learn to handle scrubbing dirty input, do currency conversions using abstract units of measurments (pips and lots)
@@ -42,7 +45,7 @@ On the right is the python program with a set of static values set at the top of
 DEMO
 ![image](assets/pos_size_demo.gif)
 
-**Explanation:**
+**Definitions:**
 
 - **Account Currency** will be what currency our broker is accepting, This currency would appear in our trading account to use as leverage for trading. So if we are in the USA, we will be using USD.
 - **Currency Pair** is the pair of currency we are treating as an asset (like one would treat TSLA in the stock market) to execute our trades against.
@@ -54,7 +57,7 @@ DEMO
 
 **Calculation**
 
-The calculation for position size can be found on line 228
+### The calculation for position size can be found on line 228
 ```python
 position_size = (((account_balance * risk_percent)/pip_stoploss)/pip_value_per_lot)
 ```
@@ -92,9 +95,46 @@ Video 3: https://www.youtube.com/watch?v=3jwixTmgHUg
 [more about position size can be found here](https://learningcenter.fxstreet.com/education/learning-center/unit-3/chapter-3/the-position-size/index.html)
 
 - ### Menu option 2, calculating profits
-Arguably easier than menu 1, but still requires the pip_value_per_lot code block mentioned just above.
+An easier implementation than menu 1, but still requires the pip_value_per_lot code block mentioned just above.
 
-DEMO:
+**Going long** (or entering a buy position): if you're going long, you buy the currency pair when its low, say 1.1, and hope it goes to 1.2 to make a profit, if it goes to 1.0, then you lost money.
+
+**Going short** (or entering a sell position): if you're going short, you're buying a currency pair at what you think is the peak, hoping that the pair devalues which you will profit from. 1.1 -> 1.0 = profit, where 1.1 -> 1.2 on a short position = loss. 
+
+DEMO (going long)
+![image](assets/profit_long_demo.gif)
+
+DEMO (going short)
+![image](assets/profit_short_demo.gif)
+
+This calculation is straitforward. Its important to know the currency pair the user is trading, and their account currency. This will obtain a pip value per lot.\
+Lot size is a standard 100,000 units of base currency per 1 lot, and the pip value per lot is calculated on lines 136 to 146 as explained [just above](#the-calculation-for-position-size-can-be-found-on-line-228)
+
+**notes**
+Take extra care to make sure if a JPY currency is involved, to calculate pips differently such as shown in line 177
+```python
+    if "JPY" in currency_pair:
+        pip_delta = (close_price - open_price) * 100
+    else:
+        pip_delta = (close_price - open_price) * 10000
+```
+
+
+Line 194 contains the formula:
+```python
+profit = trade_size_in_lots * pip_value_per_lot * pip_delta
+```
+
+Where trade size in lots is given by the user, pip value per lot is obtained from the users account currency, and calculations done on line 136-146.
+Pip delta is the different between the price of the currency pair from the time of entering a position (open price), and price of exiting the position (close price). \
+This will determine the users specific pip count lost or gained between the open and closing position.
+
+On line 196 the following code snippet just inverts the profit/loss if the user entered a sell, or short position.
+*as would indicate a profit if the currency pair devalued from 1.1 to 1.0, where a normal buy position would define a loss on that evaluation.
+```python
+    if trade_direction == "s":
+        profit = profit * -1
+```
 
 ### explaining pips
 
