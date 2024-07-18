@@ -138,7 +138,7 @@ On line 196 the following code snippet just inverts the profit/loss if the user 
         profit = profit * -1
 ```
 
-### explaining pips
+## explaining pips
 
 Pip stands for percentage in points. When you look up a currency pair on the forex market you will always see it to the fourth or fifth decimal place.\
 Technically the fourth decimal place is the pip, and the fifth decimal place not all brokers support, but is called a *pipette* and is one tenth of a pip.
@@ -150,7 +150,21 @@ If this pair was to increase to 156.30 then this would be an observed rise in on
 Same rules about pipettes apply to the JPY currencies, where the pipette is the next place after the decimal, or the third digit in this case if a broker supports it on their trading platform.
 
 Two short videos explaining pips:
-Video 1: https://www.youtube.com/watch?v=EfGmUiOPJCA
+Video 1: https://www.youtube.com/watch?v=EfGmUiOPJCA \
 Video 2: https://www.youtube.com/watch?v=D1YjpXDAG-c
 
-### explaining lot sizes
+## explaining lot sizes
+
+Lots are what we trade forex pairs in. If we want to place a buy order on EURUSD, then we have to specify lot size.\
+Lot size indicates how much of the base currency (EUR in this case) we are getting for the exchange rate of the quote currency.\
+If we want to place a buy order for 1 lot on the AUDUSD pair, and AUD/USD is valued at 1.2000, then we will get 100,000 (or 1 lot) of AUD, if we hand over 120,000 USD.
+
+Typically price of currencies do not sway so chaotically, so you may only see a movement in a day of a few dozen pips. But while holding 1 lot of a currency pair,\
+a movement from 1.2000 to 1.2002 (2 pips) can yeild large profits. 
+
+Where the opposite can happen too, going from 1.2 to 1.1 would be a huge loss unless you shorted the pair. \
+*this is why its very important to set stop-losses to pull you out of positions if the market gets too wild, or your trading account can be drained faster than you can see the updates come in on the candle stick*
+
+
+Video 1: https://www.youtube.com/watch?v=ZgEOSpLWsxQ \
+Video 2: https://www.youtube.com/watch?v=ArUtqy-hUxw
