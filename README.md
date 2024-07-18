@@ -1,14 +1,31 @@
 # READ ME IS WORK IN PROGRESS (JUL 17, 2024, 19:58)
 
 ## Prologue; What is forex?
+The global foreign exchange market has a trading volume per day of over $6,000,000,000,000 (trillion) dollars. Compared to the NYSE of just over 18 billion.
+
+The forex market is where people can speculate on the rise and fall of currency pair values. You always need a pair to calculate the value of a currency. Or else you can always say one dollar is worth one dollar.
+
+A currency pair is made up of a base currency, and a quote currency. EUR/USD, where EUR is the base, and USD is the quote currency.\
+*This pair will tell us how much of the quote currency we need to buy the base currency.*
+
+The EUR/USD is 1.0939, meaning you need 1.0939 USD to obtain one Euro.
+
+It is this principal that the entire foundation of the forex market is built upon. 
+
+In order to effectively place market trades and make a profit on forex, its paramount to understand the fundamentals. This project aims to provide two calculator options for users to play with.
+
+While the values for pairs and exchange rates are fixed and not polled by an API, this tool still provides the correct results from calculations performed using static exchange rates.
 
 
 # Objectives of this project:
 
-Learn to handle scrubbing dirty input, do currency conversions using abstract units of measurments (pips and lots)
+Learn to handle scrubbing dirty input, do currency conversions using abstract units of measurements (pips and lots)
+
+This project focuses on calculating changes in currency pair values, say a (6 pip) rise from 1.0944 to 1.0950 would yield what profit with a lot size of 1?
+Pips and lots, [these are fundamental to understand](#explaining-pips) in order to even use the calculator, let alone program it.
 
 This project mainly relies on the comprehension of loops, conditional statements, and fstrings. \
-(There is a use of "eval" which may be innaproriate for this project, if so, lines 166 and 225 need to be re-thought out)
+(There is a use of "eval" which may be inappropriate for this project, if so, lines 166 and 225 need to be re-thought out)
 
 The goal of this readme is to breakdown the project into modules. **The code of this project is 240 lines**\
 where the instructor code for old project 3 is about 170. I will leave it upto whom ever has the final say\
@@ -149,7 +166,8 @@ The pip of such a currency pair will only be measured to the hundredths place, e
 If this pair was to increase to 156.30 then this would be an observed rise in one pip.\
 Same rules about pipettes apply to the JPY currencies, where the pipette is the next place after the decimal, or the third digit in this case if a broker supports it on their trading platform.
 
-Two short videos explaining pips:
+Two short videos explaining pips: \
+
 Video 1: https://www.youtube.com/watch?v=EfGmUiOPJCA \
 Video 2: https://www.youtube.com/watch?v=D1YjpXDAG-c
 
