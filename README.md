@@ -29,12 +29,66 @@ The goal of this readme is to breakdown the project into modules. **The code of 
 where the instructor code for old project 3 is about 170. I will leave it upto whom ever has the final say\
 to add, remove or reconfigure, modules from to this project in order to craft a more suited project 3 for CSE231. 
 
+---
 ## Project breakdown
 
-- ### Setting up the users account
+- ## Setting up the users account
 
-Lines: 73 -> 126, 152 -> 154 \
-Total: **55 lines**
+
+<Details>
+<summary>Code for the following two gifs (53 lines) </summary>
+
+*Lines: 73 -> 126, (152 -> 154 (for menu option that enters you back into this loop))*
+
+```python
+    if program_loops == 0 or change_account_balance_flag == True:
+    #set the currency of the account (valid are USD, EUR, and GBP)
+    # if we already had a currency set from the previous loop, then show the user the last one, and re-use it if the user entered a blank one.
+    if account_currency:
+        ac_old = account_currency
+        while True:
+            account_currency = input(ACCOUNT_CURRENCY_TEXT+f'(default: {ac_old}): ').upper()
+            if not account_currency:
+                account_currency = ac_old
+            if account_currency not in valid_account_currencies_abbreviation:
+                print('typo or currency not valid')
+                continue
+            break
+    #if this is the first loop around, then our account_currency variable is empty, and needs to be set here
+    else:
+        while True:
+            account_currency = input(ACCOUNT_CURRENCY_TEXT).upper()
+            if account_currency not in valid_account_currencies_abbreviation:
+                print('typo or currency not valid')
+                continue
+            break
+    ## Block of code to practice error checking
+    while True:
+        dot_count = 0 #how many dots are in the input amount, 1.54 is valid, 1.54.23 is invalid
+        valid = False #valid flag
+        account_balance = input(ACCOUNT_BALANCE_TEXT)
+        for i in account_balance:  # For every charecter in the text the user gave
+            if i not in '1234567890.':  # check if the charecter is in the string(list) of approved charecters, numbers or a period
+                #fun todo - if a user appends a + or - to the front of an account balance, it would take the previous balance and add or subtract what they enter after the + or -
+                valid = False
+                print(ACCOUNT_BALANCE_INVALID_TEXT)  # if its not, such as 'a' or '(' then set valid to false, break from the for loop, and continue
+                break
+            if i == '.':  # if the charecter is a dot, thats okay, but we cant have more than one dot in an account balance. so keep track of it
+                dot_count += 1
+            if dot_count > 1:  # if our dot count ever exceeds one, then we set the valid flag to false, and break the for loop.
+                valid = False
+                print(ACCOUNT_BALANCE_INVALID_TEXT)
+                break
+            valid = True
+        if not valid:  # if the valid flag is false, restart the loop.
+            continue
+        else:  # if it's not false, continue to the main menu of the program.
+            break
+    change_account_balance_flag = False
+account_balance = float(account_balance)  # convert the scrubbed input from string to float
+```
+
+</Details>
 
 ![image](assets/initial_currency_input.gif)
 
@@ -48,10 +102,41 @@ the default entry. There is error checking implemented here as well.
 
 ![image](assets/changing_account_currency.gif)
 
-- ### Menu option 1, calculating position size
+---
+- ## Menu option 1, calculating position size
 
-Lines: 206 -> 234, (relies on (10) lines 136 -> 146 for calculating pip value)\
-Total: **28 lines**
+<details>
+<summary> Code for calculating position size (28 lines) </summary>
+
+*Lines: 206 -> 234, (relies on (10) lines 136 -> 146 for calculating pip value)*
+
+```python
+    risk_percent = (float(input(f"How much of your account ({account_currency} {account_balance:,.2f}) are you willing to risk? (%): "))/100)
+    print(f"--- Entered {risk_percent}% - {((risk_percent)*account_balance)} ---") #for debug, make dynamic sentence structure down below later.
+    pip_stoploss = int(input("how many pips are you willing to gamble? (stoploss in integer): "))
+    print(f"--- Entered {pip_stoploss} pips ---")
+    
+    while True:
+        currency_pair = input(CURRENCY_PAIR_TEXT).upper()
+        if currency_pair not in valid_currency_pairs:
+            print("Invalid Pair - Please enter an approved currency pair")
+            continue
+        break
+    
+    print(f"--- Entered currency pair {currency_pair} ---")
+    # calculate pip_value_per_lot for each trade currency
+    pip_value_per_lot = eval("pip_value_per_lot_" + currency_pair[3:6])
+    # calculate position size
+    position_size = (((account_balance * risk_percent)/pip_stoploss)/pip_value_per_lot)
+    print()
+    print(f"With an account balance of {account_currency} {account_balance:,.2f}, taking a {risk_percent}% risk ({account_currency} {((risk_percent)*account_balance)}) with a {pip_stoploss} pip stoploss.\n\
+A position of {position_size:,.2f} lots should be staked in {currency_pair[0:3]+'/'+currency_pair[3:6]}")
+    
+    print()
+    input("press enter to continue...") 
+```
+
+</details>
 
 On the left is an [online currency calculator](https://www.myfxbook.com/forex-calculators/position-size/USDJPY), plugged into API's that constantly get updated forex rates.\
 On the right is the python program with a set of static values set at the top of the program,\
@@ -111,10 +196,63 @@ Video 3: https://www.youtube.com/watch?v=3jwixTmgHUg
 
 what helped put together this section regarding the formula [can be found here](https://learningcenter.fxstreet.com/education/learning-center/unit-3/chapter-3/the-position-size/index.html)
 
-- ### Menu option 2, calculating profits
+---
+- ## Menu option 2, calculating profits
 
-Lines: 156 -> 204, (relies on (10) lines 136 -> 146 for calculating pip value)
+
 Total: 48 lines
+
+<details>
+<summary> Code for calculating profit (48 lines) </summary>
+
+*Lines: 156 -> 204, (relies on (10) lines 136 -> 146 for calculating pip value)*
+
+```python
+# calculate profit from pip increase or decrease, with position direction stake
+
+    while True:
+        currency_pair = input(CURRENCY_PAIR_TEXT).upper()
+        if currency_pair not in valid_currency_pairs:
+            print("Invalid Pair - Please enter an approved currency pair")
+            continue
+        break
+        
+    pip_value_per_lot = eval("pip_value_per_lot_" + currency_pair[3:6])
+    trade_size_in_lots = float(input("Please enter trade size in lots: "))
+    print(f"--- Entered {trade_size_in_lots} lots ---")
+    open_price = float(input(OPEN_PRICE_TEXT))
+    print(f"--- Entered {open_price} open price ---")
+    close_price = float(input(CLOSE_PRICE_TEXT))
+    print(f"--- Entered {close_price} close price ---")
+    
+    if "JPY" in currency_pair:
+        pip_delta = (close_price - open_price) * 100
+    else:
+        pip_delta = (close_price - open_price) * 10000
+        
+    print(f"--- Market changed {pip_delta} pips ---")
+    trade_direction = input("Please enter trade direction ((b)uy or (s)ell): ").lower()
+    
+    if trade_direction == "b" or trade_direction == "buy":
+        print(f"--- Entered long position ---")
+        trade_direction = "b"
+    if trade_direction == "s" or trade_direction == "sell":
+        print(f"--- Entered short position ---")
+        trade_direction = "s"
+        
+    profit = trade_size_in_lots * pip_value_per_lot * pip_delta
+    
+    if trade_direction == "s":
+        profit = profit * -1
+        
+    print(f"Profit = {account_currency} {profit:,.2f}")
+    print()
+    input("press enter to continue...")
+    print()
+    print()
+```
+
+</details>
 
 An easier implementation than menu 1, but still requires the pip_value_per_lot code block mentioned just above.
 
@@ -162,7 +300,7 @@ On line 196 the following code snippet just inverts the profit/loss if the user 
     if trade_direction == "s":
         profit = profit * -1
 ```
-
+---
 ## Explaining pips
 
 Pip stands for percentage in points. When you look up a currency pair on the forex market you will always see it to the fourth or fifth decimal place.\
@@ -174,7 +312,7 @@ The pip of such a currency pair will only be measured to the hundredths place, e
 If this pair was to increase to 156.30 then this would be an observed rise in one pip.\
 Same rules about pipettes apply to the JPY currencies, where the pipette is the next place after the decimal, or the third digit in this case if a broker supports it on their trading platform.
 
-Two short videos explaining pips: \
+Two short videos explaining pips: 
 
 Video 1: https://www.youtube.com/watch?v=EfGmUiOPJCA \
 Video 2: https://www.youtube.com/watch?v=D1YjpXDAG-c
