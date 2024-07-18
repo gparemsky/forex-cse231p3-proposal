@@ -107,6 +107,8 @@ DEMO (going long)
 DEMO (going short)
 ![image](assets/profit_short_demo.gif)
 
+[online profit calculator used with explanation](https://www.myfxbook.com/forex-calculators/profit-calculator/EURUSD)
+
 This calculation is straitforward. Its important to know the currency pair the user is trading, and their account currency. This will obtain a pip value per lot.\
 Lot size is a standard 100,000 units of base currency per 1 lot, and the pip value per lot is calculated on lines 136 to 146 as explained [just above](#the-calculation-for-position-size-can-be-found-on-line-228)
 
@@ -137,5 +139,18 @@ On line 196 the following code snippet just inverts the profit/loss if the user 
 ```
 
 ### explaining pips
+
+Pip stands for percentage in points. When you look up a currency pair on the forex market you will always see it to the fourth or fifth decimal place.\
+Technically the fourth decimal place is the pip, and the fifth decimal place not all brokers support, but is called a *pipette* and is one tenth of a pip.
+
+An important side note about pips, with any pair with the japanese yen as the quote currency (eg USD/JPY)\
+*quote currency being the second currency in the pair, base being the first*
+The pip of such a currency pair will only be measured to the hundredths place, example USDJPY = 156.29 \
+If this pair was to increase to 156.30 then this would be an observed rise in one pip.\
+Same rules about pipettes apply to the JPY currencies, where the pipette is the next place after the decimal, or the third digit in this case if a broker supports it on their trading platform.
+
+Two short videos explaining pips:
+Video 1: https://www.youtube.com/watch?v=EfGmUiOPJCA
+Video 2: https://www.youtube.com/watch?v=D1YjpXDAG-c
 
 ### explaining lot sizes
