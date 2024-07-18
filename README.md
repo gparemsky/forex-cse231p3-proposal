@@ -1,5 +1,5 @@
 ## Prologue; What is forex?
-The global foreign exchange market has a trading volume per day of over $6,000,000,000,000 (trillion) dollars. Compared to the NYSE of just over 18 billion.
+The global foreign exchange market has a trading volume **per day** of over $6,000,000,000,000 (trillion) dollars. Compared to the NYSE of just over 18 billion.
 
 The forex market is where people can speculate on the rise and fall of currency pair values. You always need a pair to calculate the value of a currency. Or else you can always say one dollar is worth one dollar.
 
@@ -19,7 +19,7 @@ While the values for pairs and exchange rates are fixed and not polled by an API
 
 Learn to handle scrubbing dirty input, do currency conversions using abstract units of measurements (pips and lots)
 
-This project focuses on calculating changes in currency pair values, say a (6 pip) rise from 1.0944 to 1.0950 would yield what profit with a lot size of 1?
+This project focuses on calculating changes in currency pair values, say a (6 pip) rise from 1.0944 to 1.0950 would yield what profit with a lot size of 1? \
 Pips and lots, [these are fundamental to understand](#explaining-pips) in order to even use the calculator, let alone program it.
 
 This project mainly relies on the comprehension of loops, conditional statements, and fstrings. \
@@ -67,16 +67,16 @@ DEMO
 - **Account size** is the amount of money we have in our trading account to use as leverage for trades.
 - **Risk ratio** is simply the percent amount of our account size we are willing to lose on one trade. Typically 2-5%
 - **Stop-Loss in pips** every point the market moves in forex is called a pip, if the market moves 50 pips on EUR/USD, An example of the market value of EUR/USD could have moved from 1.0850 to 1.0900 where one pip is one digit in the fourth decimal place, or one ten thousandth of a currency pair value \
-*(this is not true for one exception, any pair with the japanese yen, where we measure one pip in the 100th's place, 161.54 to 161.64 is a 10 pip movement)* [further explanation on pips can be found below](#explaining-pips)
+*(this is not true for one exception, any pair with the japanese yen as the quote currency, where we measure one pip in the 100th's place, 161.54 to 161.64 is a 10 pip movement)* [further explanation on pips can be found below](#explaining-pips)
 - **Trade size** - in the online calculator, trade size is just a reference for how big of lots we are trading in, standard lot sizes are 1.0, so we will keep it as one. [further explanation on lots can be found below](#explaining-lot-sizes)
 
-**Calculation**
+## **Calculation**
 
 ### The calculation for position size can be found on line 228
 ```python
 position_size = (((account_balance * risk_percent)/pip_stoploss)/pip_value_per_lot)
 ```
-position size relies on four values, three of which the user gives to us (acc balance, risk percent of acc, and pip stoploss) the fourth value requires some calculation which is done on the code block on lines 136 to 146\
+position size relies on four values, three of which the user gives to us (account balance, risk percent of account, and pip stoploss) the fourth value requires some calculation which is done on the code block on lines 136 to 146 
 ```python
     if account_currency == "USD":
         pip_value_per_lot_USD = STANDARD_PIP * STANDARD_LOT_SIZE
@@ -95,10 +95,12 @@ An example (and online explanation) of a pip value per lot calculator can be fou
 The value of a pip depends on our account currency. In this case, either USD or EUR. 
 
 A pip is calculated by the following: (1 pip / Quote currency Exchange Rate to Account Currency) * lot size measurement\
+*(this ones alittle difficult to comprehend at first, bare with me)*
+
 *In every currency pair, there is a base currency and a quote currency.\
 In EUR/USD, the EUR is the base currency and the USD is the quote currency.*
 
-In this case, A standard pip will always be 0.0001, only unless the jpy is involved.\
+In this case, A standard pip will always be 0.0001, only unless the jpy is involved as the quote(second) currency.\
 For a trading account that uses USD, where the **quote currency is the USD** (eg EURUSD), the pip value per lot in this case will be $10 (or `(0.0001 / 1) * 100,000`)\
 Where a "standard lot" is **100,000 units of the base currency**.
 
@@ -107,12 +109,16 @@ Video 1: https://www.youtube.com/watch?v=7kzizI2MpfA \
 Video 2: https://www.youtube.com/watch?v=omPNkM7PdQ4&t \
 Video 3: https://www.youtube.com/watch?v=3jwixTmgHUg
 
-[more about position size can be found here](https://learningcenter.fxstreet.com/education/learning-center/unit-3/chapter-3/the-position-size/index.html)
+what helped put together this section regarding the formula [can be found here](https://learningcenter.fxstreet.com/education/learning-center/unit-3/chapter-3/the-position-size/index.html)
 
 - ### Menu option 2, calculating profits
+
+Lines: 156 -> 204, (relies on (10) lines 136 -> 146 for calculating pip value)
+Total: 48 lines
+
 An easier implementation than menu 1, but still requires the pip_value_per_lot code block mentioned just above.
 
-**Going long** (or entering a buy position): if you're going long, you buy the currency pair when its low, say 1.1, and hope it goes to 1.2 to make a profit, if it goes to 1.0, then you lost money.
+**Going long** (or entering a buy position): if you're going long, you buy the currency pair when its low, say 1.1, and hope it goes to 1.2 to make a profit. But if it goes to 1.0, then you lost money.
 
 **Going short** (or entering a sell position): if you're going short, you're buying a currency pair at what you think is the peak, hoping that the pair devalues which you will profit from. 1.1 -> 1.0 = profit, where 1.1 -> 1.2 on a short position = loss. 
 
@@ -127,7 +133,7 @@ DEMO (going short)
 This calculation is straitforward. Its important to know the currency pair the user is trading, and their account currency. This will obtain a pip value per lot.\
 Lot size is a standard 100,000 units of base currency per 1 lot, and the pip value per lot is calculated on lines 136 to 146 as explained [just above](#the-calculation-for-position-size-can-be-found-on-line-228)
 
-**notes**
+> [!IMPORTANT]
 Take extra care to make sure if a JPY currency is involved, to calculate pips differently such as shown in line 177
 ```python
     if "JPY" in currency_pair:
@@ -135,7 +141,8 @@ Take extra care to make sure if a JPY currency is involved, to calculate pips di
     else:
         pip_delta = (close_price - open_price) * 10000
 ```
-
+> [!WARNING]\
+> *Yes, technically here it should read more like (if currency_pair[3:6] == "JPY"), but we dont have any pairs with the JPY as the base currency, so its okay to just check for JPY anywhere in the pair otherwise we just want to apply this if JPY is the quote currency, this maybe should get fixed in the final-final instructor code*
 
 Line 194 contains the formula:
 ```python
@@ -145,6 +152,9 @@ profit = trade_size_in_lots * pip_value_per_lot * pip_delta
 Where trade size in lots is given by the user, pip value per lot is obtained from the users account currency, and calculations done on line 136-146.
 Pip delta is the different between the price of the currency pair from the time of entering a position (open price), and price of exiting the position (close price). \
 This will determine the users specific pip count lost or gained between the open and closing position.
+
+> [!NOTE] \
+> When calculating conversions, for say an accoung thats in USD, for a trade of EUR/CHF, typically the closing price (or most recent) is used as the conversion rate when converting your profits into USD
 
 On line 196 the following code snippet just inverts the profit/loss if the user entered a sell, or short position.
 *as would indicate a profit if the currency pair devalued from 1.1 to 1.0, where a normal buy position would define a loss on that evaluation.
