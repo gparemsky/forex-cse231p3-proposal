@@ -133,7 +133,7 @@ DEMO (going short)
 This calculation is straitforward. Its important to know the currency pair the user is trading, and their account currency. This will obtain a pip value per lot.\
 Lot size is a standard 100,000 units of base currency per 1 lot, and the pip value per lot is calculated on lines 136 to 146 as explained [just above](#the-calculation-for-position-size-can-be-found-on-line-228)
 
-> [!IMPORTANT] \
+> [!IMPORTANT]\
 Take extra care to make sure if a JPY currency is involved, to calculate pips differently such as shown in line 177
 ```python
     if "JPY" in currency_pair:
@@ -153,7 +153,7 @@ Where trade size in lots is given by the user, pip value per lot is obtained fro
 Pip delta is the different between the price of the currency pair from the time of entering a position (open price), and price of exiting the position (close price). \
 This will determine the users specific pip count lost or gained between the open and closing position.
 
-> [!NOTE] \
+> [!NOTE]\
 > When calculating conversions, for say an accoung thats in USD, for a trade of EUR/CHF, typically the closing price (or most recent) is used as the conversion rate when converting your profits into USD
 
 On line 196 the following code snippet just inverts the profit/loss if the user entered a sell, or short position.
@@ -192,7 +192,7 @@ You can set your frame of reference to what "a 1.0 lot size" is, either a standa
 
 For example, a standard lot would be 1.0, a micro lot would be 0.1, and a mini lot would be 0.01. This is normally how everyone sees it.
 
-> [!WARNING] \
+> [!WARNING] 
 But there could be a rare blue moon case that someone says 1.0 is a micro lot, and on that scale, 10.0 is a standard lot. This is not how we do it, or others normally do it. Just be aware of it but dont calculate currency this way. **Beware of it though.**
 
 Typically price of currencies do not sway so chaotically, so you may only see a movement in a day of a few dozen pips. But while holding 1 lot of a currency pair,\
