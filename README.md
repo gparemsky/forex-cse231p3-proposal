@@ -163,7 +163,8 @@ Typically, a lot is 100,000 units, and we will almost always refer to it as 1.0,
 for smaller volume of trades, there are micro lots 10,000 units, and mini lots 1,000.
 
 You can set your frame of reference to what "a 1.0 lot size" is, either a standard, mini, or micro, but normally everyone just assumes 1.0 is a standard lot size.
-
+For example, a standard lot would be 1.0, a micro lot would be 0.1, and a mini lot would be 0.01. This is normally how everyone sees it.
+But it could be a rare blue moon case that someone says 1.0 is a micro lot, and on that scale, 10.0 is a standard lot. This is not how we do it, or others normally do it. Just be aware of it but dont calculate currency this way. **Beware of it though.**
 
 Typically price of currencies do not sway so chaotically, so you may only see a movement in a day of a few dozen pips. But while holding 1 lot of a currency pair,\
 a movement from 1.2000 to 1.2002 (2 pips) can yield large profits. 
