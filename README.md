@@ -339,6 +339,7 @@ a movement from 1.2000 to 1.2002 (2 pips) can yield large profits.
 Where the opposite can happen too, going from 1.2000 to 1.1500 (-500 pips) would be a huge loss unless you shorted the pair. \
 *this is why its very important to set stop-losses to pull you out of positions if the market gets too wild, or your trading account can be drained faster than you can see the updates come in on the candle stick*
 
+Two short videos explaining lots: 
 
 Video 1: https://www.youtube.com/watch?v=ZgEOSpLWsxQ \
 Video 2: https://www.youtube.com/watch?v=ArUtqy-hUxw
