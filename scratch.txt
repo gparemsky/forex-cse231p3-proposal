@@ -1,3 +1,23 @@
+Links used during project creation:
+
+What is a currency pair?
+https://corporatefinanceinstitute.com/resources/economics/currency-pair/#:~:text=The%20first%20listed%20currency%20within,unit%20of%20the%20base%20currency.
+
+Yahoo finance for lookups
+
+What are pips in forex?
+https://www.cmcmarkets.com/en/trading-guides/what-is-a-pip-in-trading#:~:text=To%20calculate%20the%20profit%20or,of%2020%20x%20%249.46%20%3D%20%24189.20.
+
+pip calculator
+https://www.myfxbook.com/forex-calculators/pip-calculator
+
+Risk to reward ratios
+https://www.forex.com/en-us/trading-academy/courses/successful-trading-techniques/risk-vs-reward/
+
+profit calculator:
+https://www.forextime.com/trading-tools/trading-calculator/profit-calculator
+
+
 From the top:
 
 Forex Profit Calculator
@@ -27,19 +47,6 @@ Enter close price:
 
 --------------------- if short, then profit from price decrease, if long the profit from price increase -------------
 Enter trade direction (long, short):
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ------------------------------
